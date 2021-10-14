@@ -1,0 +1,18 @@
+{
+  "Graph|2021-10-14T11:00:16.095Z|64535": {
+    "ƒ.Graph": {
+      "name": "NewGraph",
+      "components": {},
+      "children": [],
+      "idResource": "Graph|2021-10-14T11:00:16.095Z|64535",
+      "type": "Graph"
+    }
+  },
+  "MeshQuad|2021-10-14T11:00:43.959Z|07216": {
+    "ƒ.MeshQuad": {
+      "idResource": "MeshQuad|2021-10-14T11:00:43.959Z|07216",
+      "name": "MeshQuad",
+      "type": "MeshQuad"
+    }
+  }
+}
