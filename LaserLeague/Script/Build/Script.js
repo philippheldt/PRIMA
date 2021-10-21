@@ -65,25 +65,19 @@ var Script;
         ctrForward.setInput(value * 0.2);
         agent.mtxLocal.translateY(ctrForward.getOutput());
         //Rotation
-        let valueRotate = (ƒ.Keyboard.mapToValue(1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_LEFT])
-            + ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.W, ƒ.KEYBOARD_CODE.ARROW_RIGHT]));
+        let valueRotate = (ƒ.Keyboard.mapToValue(1, 0, [ƒ.KEYBOARD_CODE.A, ƒ.KEYBOARD_CODE.ARROW_LEFT])
+            + ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.D, ƒ.KEYBOARD_CODE.ARROW_RIGHT]));
         ctrTurn.setInput(valueRotate * 5);
         agent.mtxLocal.rotateZ(ctrTurn.getOutput());
-        /*if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.A, ƒ.KEYBOARD_CODE.ARROW_LEFT])){
-          agent.mtxLocal.rotateZ(speedAgentRotation * deltaTime);
-        }
-        if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.D, ƒ.KEYBOARD_CODE.ARROW_RIGHT])){
-          agent.mtxLocal.rotateZ(-speedAgentRotation * deltaTime);
-        } */
         transform.rotateZ(speedLaserRotate * (ƒ.Loop.timeFrameReal / 1000));
         viewport.draw();
         // checkCollistion();
         ƒ.AudioManager.default.update();
-        /*function checkCollistion(): void{
-          let beam: ƒ.Node = laser.getChildren()[2];
-          let posLocal: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
-        console.log(posLocal.toString());
-        }*/
+        /* function checkCollistion(): void{
+           let beam: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildren()[2];
+           let posLocal: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
+         console.log(posLocal.toString());
+         } */
     }
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map
