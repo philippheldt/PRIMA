@@ -7,6 +7,13 @@ namespace Script {
   let agent: ƒ.Node;
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
+
+  let ctrForward: ƒ.Control = new ƒ.Control("Forward", 1, ƒ.CONTROL_TYPE.PROPORTIONAL); //Copied from controls.ts
+  ctrForward.setDelay(200); //Copied from controls.ts
+
+  let ctrTurn: ƒ.Control = new ƒ.Control("Forward", 1, ƒ.CONTROL_TYPE.PROPORTIONAL); //Copied from controls.ts
+  ctrTurn.setDelay(200); //Copied from controls.ts
+
   function start(_event: CustomEvent): void {
     viewport = _event.detail;
 
@@ -16,7 +23,7 @@ namespace Script {
     viewport.camera.mtxPivot.translateZ(-30);
     
     let graph: ƒ.Node = viewport.getBranch();
-    let laser: ƒ.Node = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0]; //auswählen des Laser Objekts aus JSON
+    let laser: ƒ.Node = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
     transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
     agent = graph.getChildrenByName("all_agents")[0].getChildrenByName("agent_y")[0];
   }
@@ -24,27 +31,48 @@ namespace Script {
   function update(_event: Event): void {
     // ƒ.Physics.world.simulate();  // if physics is included and used
 
-    let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
-    let speedAgentTranslation: number = 10; //meters per second
-    let speedAgentRotation: number = 360;
+  // let speedAgentRotation: number = 360;
+   let speedLaserRotate: number = 180;
+  // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
+   
+   //forward / backwards
+   let value: number = (
+      ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_DOWN])
+      + ƒ.Keyboard.mapToValue(1, 0, [ƒ.KEYBOARD_CODE.W, ƒ.KEYBOARD_CODE.ARROW_UP])
+    );
 
-    if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.W, ƒ.KEYBOARD_CODE.ARROW_UP])){
-      agent.mtxLocal.translateY(speedAgentTranslation * deltaTime);
-    }
-    if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_DOWN])){
-      agent.mtxLocal.translateY(-speedAgentTranslation * deltaTime);
-    }
-    if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.A, ƒ.KEYBOARD_CODE.ARROW_LEFT])){
+    ctrForward.setInput(value * 0.2);
+    agent.mtxLocal.translateY(ctrForward.getOutput());
+
+  //Rotation
+    let valueRotate: number = (
+      ƒ.Keyboard.mapToValue(1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_LEFT])
+      + ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.W, ƒ.KEYBOARD_CODE.ARROW_RIGHT])
+    );
+
+    ctrTurn.setInput(valueRotate * 5);
+    agent.mtxLocal.rotateZ(ctrTurn.getOutput());
+
+    /*if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.A, ƒ.KEYBOARD_CODE.ARROW_LEFT])){
       agent.mtxLocal.rotateZ(speedAgentRotation * deltaTime);
     }
     if(ƒ.Keyboard.isPressedOne([ƒ.KEYBOARD_CODE.D, ƒ.KEYBOARD_CODE.ARROW_RIGHT])){
       agent.mtxLocal.rotateZ(-speedAgentRotation * deltaTime);
-    } // returns "true" if one of the keys are pressed (KEYBOARD_CODE =  welcher Knopf gedrückt wurde)
+    } */
 
-
-    let speedLaserRotate: number = 180; //How many Degrees to rotate in one Second
-    transform.rotateZ(speedLaserRotate*(ƒ.Loop.timeFrameReal / 1000)); //Den Laser nehmen und ihn um 3° um seine Z-Achse drehen
+    transform.rotateZ(speedLaserRotate*(ƒ.Loop.timeFrameReal / 1000)); 
+    
     viewport.draw();
+
+    // checkCollistion();
+
     ƒ.AudioManager.default.update();
+
+    /*function checkCollistion(): void{
+      let beam: ƒ.Node = laser.getChildren()[2];
+      let posLocal: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
+    console.log(posLocal.toString());
+    }*/
+
   }
 }

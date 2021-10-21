@@ -86,6 +86,18 @@
       "type": "MeshCube"
     }
   },
+  "Material|2021-10-21T12:30:21.861Z|66560": {
+    "ƒ.Material": {
+      "name": "agent_blue",
+      "idResource": "Material|2021-10-21T12:30:21.861Z|66560",
+      "shader": "ShaderFlat",
+      "coat": {
+        "ƒ.CoatColored": {
+          "color": "[0, 1, 0.984313725490196, 1]"
+        }
+      }
+    }
+  },
   "Graph|2021-10-13T12:42:15.134Z|58505": {
     "ƒ.Graph": {
       "name": "scene",
@@ -342,7 +354,7 @@
                           "pivot": {
                             "translation": "[0, 0, 0]",
                             "rotation": "[0, 0, 0]",
-                            "scaling": "[1, 1, 1]"
+                            "scaling": "[1, 1.6000001430511475, 1]"
                           },
                           "Component": {
                             "active": true
@@ -365,6 +377,61 @@
                             "active": true
                           },
                           "idMaterial": "Material|2021-10-13T12:46:30.076Z|23438"
+                        }
+                      }
+                    ]
+                  },
+                  "children": []
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "agent_b",
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[2.1999988555908203, -3, 0.5]",
+                            "rotation": "[0, 0, 0]",
+                            "scaling": "[1, 1, 2]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "ComponentMesh": [
+                      {
+                        "ƒ.ComponentMesh": {
+                          "idMesh": "MeshSphere|2021-10-13T12:44:21.233Z|26000",
+                          "pivot": {
+                            "translation": "[0, 0, 0]",
+                            "rotation": "[0, 0, 0]",
+                            "scaling": "[1, 1, 1]"
+                          },
+                          "Component": {
+                            "active": false
+                          }
+                        }
+                      }
+                    ],
+                    "ComponentMaterial": [
+                      {
+                        "ƒ.ComponentMaterial": {
+                          "sortForAlpha": false,
+                          "clrPrimary": "[1, 1, 1, 1]",
+                          "clrSecondary": "[1, 1, 1, 1]",
+                          "pivot": {
+                            "translation": "[0, 0]",
+                            "rotation": 0,
+                            "scaling": "[1, 1]"
+                          },
+                          "Component": {
+                            "active": true
+                          },
+                          "idMaterial": "Material|2021-10-21T12:30:21.861Z|66560"
                         }
                       }
                     ]
