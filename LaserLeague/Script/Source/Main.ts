@@ -32,7 +32,7 @@ namespace Script {
     // ƒ.Physics.world.simulate();  // if physics is included and used
 
   // let speedAgentRotation: number = 360;
-   let speedLaserRotate: number = 180;
+   let speedLaserRotate: number = 0;
   // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
    
 //forward / backwards
@@ -53,19 +53,20 @@ namespace Script {
     ctrTurn.setInput(valueRotate * 5);
     agent.mtxLocal.rotateZ(ctrTurn.getOutput());
 
+//Rotate Laser
     transform.rotateZ(speedLaserRotate*(ƒ.Loop.timeFrameReal / 1000)); 
-    
     viewport.draw();
 
-   // checkCollistion();
+    checkCollision();
 
     ƒ.AudioManager.default.update();
-
-   /* function checkCollistion(): void{
-      let beam: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildren()[2];
-      let posLocal: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
-    console.log(posLocal.toString());
-    } */
-
   }
+
+  function checkCollision(): void {
+    let laser: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0]
+    let beam: ƒ.Node = laser.getChildren()[0];
+    let posLocal: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
+    console.log(posLocal.toString());
+  }
+
 }
