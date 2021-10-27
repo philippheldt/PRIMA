@@ -75,11 +75,16 @@ var Script;
         checkCollision();
         ƒ.AudioManager.default.update();
     }
+    //Collision
     function checkCollision() {
-        let laser = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
+        let laser = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("arms")[0];
         let beam = laser.getChildren()[0];
-        let posLocal = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
-        console.log(posLocal.toString());
+        let distance = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
+        let x = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.x / 2 + agent.radius;
+        let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
+        if (distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
+            console.log('collision!');
+        }
     }
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map
