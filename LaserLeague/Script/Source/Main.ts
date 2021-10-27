@@ -33,7 +33,7 @@ namespace Script {
     // ƒ.Physics.world.simulate();  // if physics is included and used
 
   // let speedAgentRotation: number = 360;
-   let speedLaserRotate: number = 0;
+   let speedLaserRotate: number = 180;
   // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
    
 //forward / backwards
@@ -58,30 +58,32 @@ namespace Script {
     transform.rotateZ(speedLaserRotate*(ƒ.Loop.timeFrameReal / 1000)); 
     viewport.draw();
 
-    checkCollision();
+
+        //Collision
+        let laserbeams: ƒ.Node[] = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("arms");
+        laserbeams.forEach(beam => {
+          beam.getComponent(ƒ.ComponentTransform).mtxLocal.rotateZ(speedLaserRotate * ƒ.Loop.timeFrameReal / 1000);
+          checkCollision(agent, beam);
+        });
 
     ƒ.AudioManager.default.update();
   }
 
-//Collision
-  function checkCollision(): void {
-    let laser: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("arms")[0];
-    let beam: ƒ.Node = laser.getChildren()[0];
 
+  function checkCollision(agent: ƒ.Node, beam:ƒ.Node): void {
   
-
     let distance: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
-
+  
     let x = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.x/2 + agent.radius;
     let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
-
+  
       if(distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
         console.log('collision!');
       }
    
-
-
+  
+  
     
   }
-
 }
+
