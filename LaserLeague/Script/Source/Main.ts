@@ -21,7 +21,8 @@ namespace Script {
     ƒ.Loop.start(ƒ.LOOP_MODE.TIME_REAL, 60);  // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     
     viewport.camera.mtxPivot.translateZ(-30);
-    
+
+
     let graph: ƒ.Node = viewport.getBranch();
     let laser: ƒ.Node = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
     transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
@@ -62,11 +63,25 @@ namespace Script {
     ƒ.AudioManager.default.update();
   }
 
+//Collision
   function checkCollision(): void {
-    let laser: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0]
+    let laser: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("arms")[0];
     let beam: ƒ.Node = laser.getChildren()[0];
-    let posLocal: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
-    console.log(posLocal.toString());
+
+  
+
+    let distance: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
+
+    let x = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.x/2 + agent.radius;
+    let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
+
+      if(distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
+        console.log('collision!');
+      }
+   
+
+
+    
   }
 
 }
