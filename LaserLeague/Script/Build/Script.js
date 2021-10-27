@@ -32,4 +32,54 @@ var Script;
     }
     Script.CustomComponentScript = CustomComponentScript;
 })(Script || (Script = {}));
+var Script;
+(function (Script) {
+    var ƒ = FudgeCore;
+    ƒ.Debug.info("Main Program Template running!");
+    let viewport;
+    let transform;
+    let agent;
+    document.addEventListener("interactiveViewportStarted", start);
+    let ctrForward = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
+    ctrForward.setDelay(200); //Copied from controls.ts
+    let ctrTurn = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
+    ctrTurn.setDelay(200); //Copied from controls.ts
+    function start(_event) {
+        viewport = _event.detail;
+        ƒ.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update); //gameloop, which refreshes the image (When loop is calles, run the Function update)
+        ƒ.Loop.start(ƒ.LOOP_MODE.TIME_REAL, 60); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
+        viewport.camera.mtxPivot.translateZ(-30);
+        let graph = viewport.getBranch();
+        let laser = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
+        transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
+        agent = graph.getChildrenByName("all_agents")[0].getChildrenByName("agent_y")[0];
+    }
+    function update(_event) {
+        // ƒ.Physics.world.simulate();  // if physics is included and used
+        // let speedAgentRotation: number = 360;
+        let speedLaserRotate = 0;
+        // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
+        //forward / backwards
+        let value = (ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_DOWN])
+            + ƒ.Keyboard.mapToValue(1, 0, [ƒ.KEYBOARD_CODE.W, ƒ.KEYBOARD_CODE.ARROW_UP]));
+        ctrForward.setInput(value * 0.2);
+        agent.mtxLocal.translateY(ctrForward.getOutput());
+        //Rotation
+        let valueRotate = (ƒ.Keyboard.mapToValue(1, 0, [ƒ.KEYBOARD_CODE.A, ƒ.KEYBOARD_CODE.ARROW_LEFT])
+            + ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.D, ƒ.KEYBOARD_CODE.ARROW_RIGHT]));
+        ctrTurn.setInput(valueRotate * 5);
+        agent.mtxLocal.rotateZ(ctrTurn.getOutput());
+        //Rotate Laser
+        transform.rotateZ(speedLaserRotate * (ƒ.Loop.timeFrameReal / 1000));
+        viewport.draw();
+        checkCollision();
+        ƒ.AudioManager.default.update();
+    }
+    function checkCollision() {
+        let laser = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
+        let beam = laser.getChildren()[0];
+        let posLocal = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
+        console.log(posLocal.toString());
+    }
+})(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map
