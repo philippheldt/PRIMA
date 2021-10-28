@@ -486,6 +486,14 @@
                               }
                             }
                           ],
+                          "CustomComponentScript": [
+                            {
+                              "Script.CustomComponentScript": {
+                                "active": true,
+                                "message": "CustomComponentScript added to "
+                              }
+                            }
+                          ],
                           "ComponentMaterial": [
                             {
                               "ƒ.ComponentMaterial": {

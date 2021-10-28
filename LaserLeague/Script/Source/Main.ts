@@ -5,7 +5,8 @@ namespace Script {
   let viewport: ƒ.Viewport;
   let transform: ƒ.Matrix4x4;
   let agent: ƒ.Node;
-  document.addEventListener("interactiveViewportStarted", <EventListener>start);
+  document.addEventListener("interactiveViewportStarted", <EventListener><unknown>start);
+  let copyLaser: ƒ.GraphInstance;
 
 
   let ctrForward: ƒ.Control = new ƒ.Control("Forward", 1, ƒ.CONTROL_TYPE.PROPORTIONAL); //Copied from controls.ts
@@ -14,20 +15,26 @@ namespace Script {
   let ctrTurn: ƒ.Control = new ƒ.Control("Forward", 1, ƒ.CONTROL_TYPE.PROPORTIONAL); //Copied from controls.ts
   ctrTurn.setDelay(200); //Copied from controls.ts
 
-  function start(_event: CustomEvent): void {
+  async function start(_event: CustomEvent): Promise<void> {
     viewport = _event.detail;
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update); //gameloop, which refreshes the image (When loop is calles, run the Function update)
     ƒ.Loop.start(ƒ.LOOP_MODE.TIME_REAL, 60);  // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     
-    viewport.camera.mtxPivot.translateZ(-30);
-
-
     let graph: ƒ.Node = viewport.getBranch();
     let laser: ƒ.Node = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
     transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
     agent = graph.getChildrenByName("all_agents")[0].getChildrenByName("agent_y")[0];
-  }
+    
+    viewport.camera.mtxPivot.translateZ(-30);
+
+    let graphLaser: ƒ.Graph = await ƒ.Project.registerAsGraph(laser, false);
+    copyLaser = await ƒ.Project.createGraphInstance(graphLaser);
+    console.log("Copy", copyLaser);
+
+    graph.getChildrenByName("all_lasers")[0].addChild(copyLaser);
+    copyLaser.mtxLocal.translateX(5);
+ }
 
   function update(_event: Event): void {
     // ƒ.Physics.world.simulate();  // if physics is included and used

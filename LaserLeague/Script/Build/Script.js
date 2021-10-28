@@ -40,19 +40,25 @@ var Script;
     let transform;
     let agent;
     document.addEventListener("interactiveViewportStarted", start);
+    let copyLaser;
     let ctrForward = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
     ctrForward.setDelay(200); //Copied from controls.ts
     let ctrTurn = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
     ctrTurn.setDelay(200); //Copied from controls.ts
-    function start(_event) {
+    async function start(_event) {
         viewport = _event.detail;
         ƒ.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update); //gameloop, which refreshes the image (When loop is calles, run the Function update)
         ƒ.Loop.start(ƒ.LOOP_MODE.TIME_REAL, 60); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
-        viewport.camera.mtxPivot.translateZ(-30);
         let graph = viewport.getBranch();
         let laser = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
         transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
         agent = graph.getChildrenByName("all_agents")[0].getChildrenByName("agent_y")[0];
+        viewport.camera.mtxPivot.translateZ(-30);
+        let graphLaser = await ƒ.Project.registerAsGraph(laser, false);
+        copyLaser = await ƒ.Project.createGraphInstance(graphLaser);
+        console.log("Copy", copyLaser);
+        graph.getChildrenByName("all_lasers")[0].addChild(copyLaser);
+        copyLaser.mtxLocal.translateX(5);
     }
     function update(_event) {
         // ƒ.Physics.world.simulate();  // if physics is included and used
