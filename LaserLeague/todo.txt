@@ -1,0 +1,3 @@
+fix Collision for rest of the beams
+
+Duplicate Laser-Graph 

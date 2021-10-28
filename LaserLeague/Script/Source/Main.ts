@@ -33,7 +33,7 @@ namespace Script {
     // ƒ.Physics.world.simulate();  // if physics is included and used
 
   // let speedAgentRotation: number = 360;
-   let speedLaserRotate: number = 180;
+   let speedLaserRotate: number = 0;
   // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
    
 //forward / backwards
@@ -59,14 +59,16 @@ namespace Script {
     viewport.draw();
 
 
-        //Collision
-        let laserbeams: ƒ.Node[] = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("arms");
-        laserbeams.forEach(beam => {
-          beam.getComponent(ƒ.ComponentTransform).mtxLocal.rotateZ(speedLaserRotate * ƒ.Loop.timeFrameReal / 1000);
-          checkCollision(agent, beam);
-        });
+
 
     ƒ.AudioManager.default.update();
+
+    let beams: ƒ.Node[] = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam");
+    beams.forEach(beam =>{
+      checkCollision(agent, beam);
+    })
+    
+  
   }
 
 

@@ -57,7 +57,7 @@ var Script;
     function update(_event) {
         // ƒ.Physics.world.simulate();  // if physics is included and used
         // let speedAgentRotation: number = 360;
-        let speedLaserRotate = 180;
+        let speedLaserRotate = 0;
         // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
         //forward / backwards
         let value = (ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_DOWN])
@@ -72,13 +72,11 @@ var Script;
         //Rotate Laser
         transform.rotateZ(speedLaserRotate * (ƒ.Loop.timeFrameReal / 1000));
         viewport.draw();
-        //Collision
-        let laserbeams = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("arms");
-        laserbeams.forEach(beam => {
-            beam.getComponent(ƒ.ComponentTransform).mtxLocal.rotateZ(speedLaserRotate * ƒ.Loop.timeFrameReal / 1000);
+        ƒ.AudioManager.default.update();
+        let beams = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam");
+        beams.forEach(beam => {
             checkCollision(agent, beam);
         });
-        ƒ.AudioManager.default.update();
     }
     function checkCollision(agent, beam) {
         let distance = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
