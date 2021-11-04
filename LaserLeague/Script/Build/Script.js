@@ -54,16 +54,16 @@ var Script;
         transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
         agent = graph.getChildrenByName("all_agents")[0].getChildrenByName("agent_y")[0];
         viewport.camera.mtxPivot.translateZ(-30);
-        let graphLaser = FudgeCore.Project.resources["Graph|2021-10-28T13:19:16.431Z|54332"];
+        let graphLaser = await ƒ.Project.registerAsGraph(laser, false);
         copyLaser = await ƒ.Project.createGraphInstance(graphLaser);
         console.log("Copy", copyLaser);
-        graph.getChildrenByName("laser").addChild(copyLaser);
+        graph.getChildrenByName("all_lasers")[0].addChild(copyLaser);
         copyLaser.mtxLocal.translateX(5);
     }
     function update(_event) {
         // ƒ.Physics.world.simulate();  // if physics is included and used
         // let speedAgentRotation: number = 360;
-        let speedLaserRotate = 180;
+        let speedLaserRotate = 0;
         // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
         //forward / backwards
         let value = (ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_DOWN])

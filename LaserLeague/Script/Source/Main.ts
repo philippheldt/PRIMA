@@ -28,11 +28,11 @@ namespace Script {
     
     viewport.camera.mtxPivot.translateZ(-30);
 
-    let graphLaser: ƒ.Graph = <ƒ.Graph>FudgeCore.Project.resources["Graph|2021-10-28T13:19:16.431Z|54332"]
+    let graphLaser: ƒ.Graph = await ƒ.Project.registerAsGraph(laser, false);
     copyLaser = await ƒ.Project.createGraphInstance(graphLaser);
     console.log("Copy", copyLaser);
 
-    graph.getChildrenByName("laser").addChild(copyLaser);
+    graph.getChildrenByName("all_lasers")[0].addChild(copyLaser);
     copyLaser.mtxLocal.translateX(5);
  }
 
@@ -40,7 +40,7 @@ namespace Script {
     // ƒ.Physics.world.simulate();  // if physics is included and used
 
   // let speedAgentRotation: number = 360;
-   let speedLaserRotate: number = 180;
+   let speedLaserRotate: number = 0;
   // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
    
 //forward / backwards
