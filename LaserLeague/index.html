@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<parsererror style="display: block; white-space: pre; border: 2px solid #c77; padding: 0 1em 0 1em; margin: 1em; background-color: #fdd; color: black">
-<h3>This page contains the following errors:</h3>
-<div style="font-family:monospace;font-size:12px">error on line 107 at column 15: Opening and ending tag mismatch: img line 0 and div
-</div>
-<h3>Below is a rendering of the page up to the first error.</h3>
-</parsererror>
-<parsererror style="display: block; white-space: pre; border: 2px solid #c77; padding: 0 1em 0 1em; margin: 1em; background-color: #fdd; color: black">
-<h3>This page contains the following errors:</h3>
-<div style="font-family:monospace;font-size:12px">error on line 101 at column 15: Opening and ending tag mismatch: img line 0 and div
-</div>
-<h3>Below is a rendering of the page up to the first error.</h3>
-</parsererror>
 <head>
 <title>LaserLeague</title>
 <meta charset="utf-8" />
@@ -93,10 +81,10 @@
 <!--Dialog shown at startup only-->
 
 <dialog>
-
+    <div class="dialog-inner">
         <h1>Title (will be replaced by autoView)</h1>
         <p>click to start</p>
-
+    </div>
 </dialog>
 <!--Canvas for FUDGE to render to-->
 <canvas class="fullscreen">
@@ -108,12 +96,18 @@
             <h2>Philipp</h2>
             <img src="img/hrt.png" alt="">
             <div id="myProgress">
-                <div id="myBar">
-</div>
-            </div>
-</img>
-</img>
-</div>
-</div>
+                <div id="myBar"></div>
+              </div>
+        </div>
+
+        <div class="hud-inner p2">
+            <img src="img/usr-pink.png" alt="">
+            <h2>Elisa</h2>
+            <img src="img/hrt-pink.png" alt="">
+            <div id="myProgress">
+                <div id="myBar"></div>
+              </div>
+        </div>
+    </div>
 </body>
 </html>
