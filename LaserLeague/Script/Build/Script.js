@@ -57,7 +57,7 @@ var Script;
     function update(_event) {
         // ƒ.Physics.world.simulate();  // if physics is included and used
         // let speedAgentRotation: number = 360;
-        let speedLaserRotate = 0;
+        let speedLaserRotate = 180;
         // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
         //forward / backwards
         let value = (ƒ.Keyboard.mapToValue(-1, 0, [ƒ.KEYBOARD_CODE.S, ƒ.KEYBOARD_CODE.ARROW_DOWN])

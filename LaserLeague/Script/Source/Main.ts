@@ -33,7 +33,7 @@ namespace Script {
     // ƒ.Physics.world.simulate();  // if physics is included and used
 
   // let speedAgentRotation: number = 360;
-   let speedLaserRotate: number = 0;
+   let speedLaserRotate: number = 180;
   // let deltaTime: number = ƒ.Loop.timeFrameReal / 1000;
    
 //forward / backwards
