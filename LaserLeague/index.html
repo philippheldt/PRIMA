@@ -79,12 +79,35 @@
 </head>
 <body>
 <!--Dialog shown at startup only-->
+
 <dialog>
-<h1>Title (will be replaced by autoView)</h1>
-<p>click to start</p>
+    <div class="dialog-inner">
+        <h1>Title (will be replaced by autoView)</h1>
+        <p>click to start</p>
+    </div>
 </dialog>
 <!--Canvas for FUDGE to render to-->
 <canvas class="fullscreen">
+    
 </canvas>
+    <div class="hud">
+        <div class="hud-inner p1">
+            <img src="img/usr.png" alt="">
+            <h2>Philipp</h2>
+            <img src="img/hrt.png" alt="">
+            <div id="myProgress">
+                <div id="myBar"></div>
+              </div>
+        </div>
+
+        <div class="hud-inner p2">
+            <img src="img/usr-pink.png" alt="">
+            <h2>Elisa</h2>
+            <img src="img/hrt-pink.png" alt="">
+            <div id="myProgress">
+                <div id="myBar"></div>
+              </div>
+        </div>
+    </div>
 </body>
 </html>
