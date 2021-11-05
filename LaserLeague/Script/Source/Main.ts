@@ -5,6 +5,14 @@ namespace Script {
   let viewport: ƒ.Viewport;
   let transform: ƒ.Matrix4x4;
   let agent: ƒ.Node;
+  let healthCounter: number = 100;
+  let stop: boolean = false;
+
+  let health= document.getElementsByClassName('myBar');
+
+
+
+
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
 
@@ -71,8 +79,8 @@ namespace Script {
   
   }
 
-
   function checkCollision(agent: ƒ.Node, beam:ƒ.Node): void {
+  
   
     let distance: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
   
@@ -80,7 +88,21 @@ namespace Script {
     let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
   
       if(distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
-        console.log('collision!');
+        if(healthCounter > 0 && stop === false) {
+          healthCounter = healthCounter -0.5;
+          health[0].setAttribute("style", "width: "+healthCounter+"%;");
+          console.log(healthCounter);
+        }
+      } else {
+        if(healthCounter < 100 && stop === false) {
+         healthCounter = healthCounter +0.01;
+         console.log(healthCounter);
+         health[0].setAttribute("style", "width: "+healthCounter+"%;");
+        }
+      }
+
+      if(healthCounter<= 1){
+        stop = true;
       }
    
   

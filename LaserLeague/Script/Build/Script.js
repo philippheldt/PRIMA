@@ -39,6 +39,9 @@ var Script;
     let viewport;
     let transform;
     let agent;
+    let healthCounter = 100;
+    let stop = false;
+    let health = document.getElementsByClassName('myBar');
     document.addEventListener("interactiveViewportStarted", start);
     let ctrForward = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
     ctrForward.setDelay(200); //Copied from controls.ts
@@ -83,7 +86,21 @@ var Script;
         let x = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.x / 2 + agent.radius;
         let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
         if (distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
-            console.log('collision!');
+            if (healthCounter > 0 && stop === false) {
+                healthCounter = healthCounter - 0.5;
+                health[0].setAttribute("style", "width: " + healthCounter + "%;");
+                console.log(healthCounter);
+            }
+        }
+        else {
+            if (healthCounter < 100 && stop === false) {
+                healthCounter = healthCounter + 0.01;
+                console.log(healthCounter);
+                health[0].setAttribute("style", "width: " + healthCounter + "%;");
+            }
+        }
+        if (healthCounter <= 1) {
+            stop = true;
         }
     }
 })(Script || (Script = {}));

@@ -64,6 +64,7 @@ canvas.fullscreen {
   grid-gap: 1em;
   min-width: 200px;
   margin-right: 20px;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.44);
 }
 
 img{
@@ -88,18 +89,18 @@ h2{
 
 img,
 h2,
-#myProgress{
+.myProgress{
 
   align-self: center;
 }
 
-#myProgress {
+.myProgress {
   width: 100%;
   background-color: #0A0F4D;
   border-radius: 5px;
 }
 
-.p1 #myBar {
+.p1 .myBar {
   width: 50%;
   height: 30px;
   background-color: #3C68F8;
@@ -107,7 +108,7 @@ h2,
 }
 
 
-.p2 #myBar {
+.p2 .myBar {
   width: 50%;
   height: 30px;
   background-color: #F3349E;
