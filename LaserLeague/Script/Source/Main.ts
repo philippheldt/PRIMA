@@ -5,6 +5,14 @@ namespace Script {
   let viewport: ƒ.Viewport;
   let transform: ƒ.Matrix4x4;
   let agent: ƒ.Node;
+  let healthCounter: number = 100;
+  let stop: boolean = false;
+  let collisionAnimation: boolean = true;
+  let health= document.getElementsByClassName('myBar');
+
+  
+
+
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
 
@@ -22,7 +30,7 @@ namespace Script {
     
     viewport.camera.mtxPivot.translateZ(-30);
 
-
+    document.querySelector('.hud').classList.toggle('invisible');
     let graph: ƒ.Node = viewport.getBranch();
     let laser: ƒ.Node = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
     transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
@@ -71,8 +79,8 @@ namespace Script {
   
   }
 
-
   function checkCollision(agent: ƒ.Node, beam:ƒ.Node): void {
+  
   
     let distance: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
   
@@ -80,12 +88,52 @@ namespace Script {
     let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
   
       if(distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
-        console.log('collision!');
+        if(healthCounter > 0 && stop === false) {
+          healthCounter = healthCounter -0.5;
+          health[0].setAttribute("style", "width: "+healthCounter+"%;");
+          
+          if( collisionAnimation === true){
+            stopHAnimation();
+            startCAnimation();
+            collisionAnimation = false; //to stop restarting animation on each LOOP
+          }
+          
+          if(healthCounter<= 1){ //stop health gowing or declining, when Dead
+            stop = true;
+            stopCAnimation();
+            document.querySelectorAll('.game-over')[0].classList.toggle("invisible");
+            document.querySelectorAll('.win-loose').forEach(elem => elem.classList.toggle("invisible"));
+            ;
+          }
+
+        }
+      } else {
+        if(healthCounter < 100 && stop === false) {
+         healthCounter = healthCounter +0.01;
+         health[0].setAttribute("style", "width: "+healthCounter+"%;");
+          
+         if(collisionAnimation ===false){
+            stopCAnimation();
+            startHAnimation();  //stop all animations.
+            collisionAnimation = true; //to stop restarting animation on each LOOP
+          }
+
+          if(healthCounter>=99){
+            stopHAnimation(); // stop the health Animation when health is retored
+          }
+          
+          
+         }
+        }
       }
+
+    
+
+      
    
   
   
     
   }
-}
+
 

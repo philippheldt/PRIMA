@@ -39,6 +39,10 @@ var Script;
     let viewport;
     let transform;
     let agent;
+    let healthCounter = 100;
+    let stop = false;
+    let collisionAnimation = true;
+    let health = document.getElementsByClassName('myBar');
     document.addEventListener("interactiveViewportStarted", start);
     let ctrForward = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
     ctrForward.setDelay(200); //Copied from controls.ts
@@ -49,6 +53,7 @@ var Script;
         ƒ.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update); //gameloop, which refreshes the image (When loop is calles, run the Function update)
         ƒ.Loop.start(ƒ.LOOP_MODE.TIME_REAL, 60); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
         viewport.camera.mtxPivot.translateZ(-30);
+        document.querySelector('.hud').classList.toggle('invisible');
         let graph = viewport.getBranch();
         let laser = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
         transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
@@ -83,8 +88,77 @@ var Script;
         let x = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.x / 2 + agent.radius;
         let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
         if (distance.x <= (x) && distance.x >= -(x) && distance.y <= y && distance.y >= 0) {
-            console.log('collision!');
+            if (healthCounter > 0 && stop === false) {
+                healthCounter = healthCounter - 0.5;
+                health[0].setAttribute("style", "width: " + healthCounter + "%;");
+                if (collisionAnimation === true) {
+                    stopHAnimation();
+                    startCAnimation();
+                    collisionAnimation = false; //to stop restarting animation on each LOOP
+                }
+                if (healthCounter <= 1) { //stop health gowing or declining, when Dead
+                    stop = true;
+                    stopCAnimation();
+                    document.querySelectorAll('.game-over')[0].classList.toggle("invisible");
+                    document.querySelectorAll('.win-loose').forEach(elem => elem.classList.toggle("invisible"));
+                    ;
+                }
+            }
+        }
+        else {
+            if (healthCounter < 100 && stop === false) {
+                healthCounter = healthCounter + 0.01;
+                health[0].setAttribute("style", "width: " + healthCounter + "%;");
+                if (collisionAnimation === false) {
+                    stopCAnimation();
+                    startHAnimation(); //stop all animations.
+                    collisionAnimation = true; //to stop restarting animation on each LOOP
+                }
+                if (healthCounter >= 99) {
+                    stopHAnimation(); // stop the health Animation when health is retored
+                }
+            }
         }
     }
 })(Script || (Script = {}));
+function startCAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        translateY: [-2, 2],
+        loop: true,
+        direction: 'alternate',
+        duration: 50,
+        easing: 'easeInOutElastic',
+    });
+}
+function stopCAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        translateY: [0, 0],
+        loop: true,
+        direction: 'alternate',
+        duration: 50,
+        easing: 'easeInOutElastic',
+    });
+}
+function startHAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        scale: 1.03,
+        loop: true,
+        direction: 'alternate',
+        duration: 700,
+        easing: 'easeInOutSine',
+    });
+}
+function stopHAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        scale: 1,
+        loop: true,
+        direction: 'alternate',
+        duration: 700,
+        easing: 'easeInOutSine',
+    });
+}
 //# sourceMappingURL=Script.js.map

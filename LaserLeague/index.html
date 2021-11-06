@@ -8,6 +8,8 @@
 <!--Editor settings of this project-->
 <meta type="settings" autoview="Graph|2021-10-13T12:42:15.134Z|58505" project="{'name':'LaserLeague','includeAutoViewScript':true,'graphAutoView':'Graph|2021-10-13T12:42:15.134Z|58505'}" panels="[{'type':'PanelProject','state':{}},{'type':'PanelGraph','state':{'graph':'Graph|2021-10-13T12:42:15.134Z|58505'}}]" />
 
+
+
 <!--Activate the following line to include the FUDGE-version of Oimo-Physics. You may want to download a local copy to work offline and be independent from future changes!-->
 <!--<script type="text/javascript" src="../../../Physics/OimoPhysics.js"></script>-->
 
@@ -19,7 +21,9 @@
 <link type="resources" src="Internal.json" />
 
 <!--Load custom scripts-->
+<script src="js/anime.min.js"></script>
 <script type="text/javascript" src="Script/Build/Script.js" editor="true"></script>
+
 
 <script name="autoView">(function (_graphId) {
                 /**
@@ -30,10 +34,12 @@
                 window.addEventListener("load", init);
                 // show dialog for startup
                 let dialog;
+                let button;
                 function init(_event) {
                     dialog = document.querySelector("dialog");
+                    button = document.querySelector(".start")
                     dialog.querySelector("h1").textContent = document.title;
-                    dialog.addEventListener("click", function (_event) {
+                    button.addEventListener("click", function (_event) {
                         // @ts-ignore until HTMLDialog is implemented by all browsers and available in dom.d.ts
                         dialog.close();
                         startInteractiveViewport();
@@ -78,13 +84,47 @@
 </script>
 </head>
 <body>
+
 <!--Dialog shown at startup only-->
+
+
 <dialog>
-<h1>Title (will be replaced by autoView)</h1>
-<p>click to start</p>
+    <div class="dialog-inner">
+        <h1>Title (will be replaced by autoView)</h1>
+        <input type="text" id="player-name" placeholder="Enter Player Name">
+        <p class="start">click to start</p>
+    </div>
 </dialog>
 <!--Canvas for FUDGE to render to-->
+
+
+
 <canvas class="fullscreen">
+    
 </canvas>
+    <div class="hud invisible">
+        <div class="hud-inner p1">
+            <h2 class="game-over invisible">GAME OVER!</h2>
+            <img class="win-loose" src="img/usr.png" alt="">
+            <h2 id="player-1" class="win-loose">---</h2>
+            <img class="win-loose" src="img/hrt.png" alt="">
+            <div class="progressAnimation1 win-loose">
+                <div class="myProgress">
+                    <div class="myBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hud-inner p2">
+            <img src="img/usr-pink.png" alt="">
+            <h2>---</h2>
+            <img src="img/hrt-pink.png" alt="">
+            <div class="myProgress">
+                <div class="myBar"></div>
+              </div>
+        </div>
+    </div>
+
+    <script src="js/ui.js"></script>
 </body>
 </html>
