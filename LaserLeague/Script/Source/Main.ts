@@ -8,7 +8,6 @@ namespace Script {
   let healthCounter: number = 100;
   let stop: boolean = false;
   let collisionAnimation: boolean = true;
-
   let health= document.getElementsByClassName('myBar');
 
   
@@ -31,7 +30,7 @@ namespace Script {
     
     viewport.camera.mtxPivot.translateZ(-30);
 
-
+    document.querySelector('.hud').classList.toggle('invisible');
     let graph: ƒ.Node = viewport.getBranch();
     let laser: ƒ.Node = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
     transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
@@ -102,6 +101,9 @@ namespace Script {
           if(healthCounter<= 1){ //stop health gowing or declining, when Dead
             stop = true;
             stopCAnimation();
+            document.querySelectorAll('.game-over')[0].classList.toggle("invisible");
+            document.querySelectorAll('.win-loose').forEach(elem => elem.classList.toggle("invisible"));
+            ;
           }
 
         }

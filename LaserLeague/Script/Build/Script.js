@@ -53,6 +53,7 @@ var Script;
         ƒ.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update); //gameloop, which refreshes the image (When loop is calles, run the Function update)
         ƒ.Loop.start(ƒ.LOOP_MODE.TIME_REAL, 60); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
         viewport.camera.mtxPivot.translateZ(-30);
+        document.querySelector('.hud').classList.toggle('invisible');
         let graph = viewport.getBranch();
         let laser = graph.getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0];
         transform = laser.getComponent(ƒ.ComponentTransform).mtxLocal;
@@ -98,6 +99,9 @@ var Script;
                 if (healthCounter <= 1) { //stop health gowing or declining, when Dead
                     stop = true;
                     stopCAnimation();
+                    document.querySelectorAll('.game-over')[0].classList.toggle("invisible");
+                    document.querySelectorAll('.win-loose').forEach(elem => elem.classList.toggle("invisible"));
+                    ;
                 }
             }
         }

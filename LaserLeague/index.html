@@ -14,15 +14,14 @@
 <!--<script type="text/javascript" src="../../../Physics/OimoPhysics.js"></script>-->
 
 <!--Load FUDGE. You may want to  download local copies to work offline and be independent from future changes! Developers working on FUDGE itself may want to create symlinks-->
-<script type="text/javascript" src="../../FUDGE/Core/Build/FudgeCore.js"></script>
-<script type="text/javascript" src="../../FUDGE/Aid/Build/FudgeAid.js"></script>
+<script type="text/javascript" src="https://jirkadelloro.github.io/FUDGE/Core/Build/FudgeCore.js"></script>
+<script type="text/javascript" src="https://jirkadelloro.github.io/FUDGE/Aid/Build/FudgeAid.js"></script>
 
 <!--Link internal resources. The editor only loads the first, but at runtime, multiple files can contribute-->
 <link type="resources" src="Internal.json" />
 
 <!--Load custom scripts-->
 <script src="js/anime.min.js"></script>
-<script src="js/ui.js"></script>
 <script type="text/javascript" src="Script/Build/Script.js" editor="true"></script>
 
 
@@ -35,10 +34,12 @@
                 window.addEventListener("load", init);
                 // show dialog for startup
                 let dialog;
+                let button;
                 function init(_event) {
                     dialog = document.querySelector("dialog");
+                    button = document.querySelector(".start")
                     dialog.querySelector("h1").textContent = document.title;
-                    dialog.addEventListener("click", function (_event) {
+                    button.addEventListener("click", function (_event) {
                         // @ts-ignore until HTMLDialog is implemented by all browsers and available in dom.d.ts
                         dialog.close();
                         startInteractiveViewport();
@@ -90,7 +91,8 @@
 <dialog>
     <div class="dialog-inner">
         <h1>Title (will be replaced by autoView)</h1>
-        <p>click to start</p>
+        <input type="text" id="player-name" placeholder="Enter Player Name">
+        <p class="start">click to start</p>
     </div>
 </dialog>
 <!--Canvas for FUDGE to render to-->
@@ -100,12 +102,13 @@
 <canvas class="fullscreen">
     
 </canvas>
-    <div class="hud">
+    <div class="hud invisible">
         <div class="hud-inner p1">
-            <img src="img/usr.png" alt="">
-            <h2>Richard</h2>
-            <img src="img/hrt.png" alt="">
-            <div class="progressAnimation1">
+            <h2 class="game-over invisible">GAME OVER!</h2>
+            <img class="win-loose" src="img/usr.png" alt="">
+            <h2 id="player-1" class="win-loose">---</h2>
+            <img class="win-loose" src="img/hrt.png" alt="">
+            <div class="progressAnimation1 win-loose">
                 <div class="myProgress">
                     <div class="myBar"></div>
                 </div>
@@ -122,6 +125,6 @@
         </div>
     </div>
 
-   
+    <script src="js/ui.js"></script>
 </body>
 </html>

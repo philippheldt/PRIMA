@@ -1,3 +1,5 @@
+
+
 function startCAnimation(){
     anime({
       targets: '.progressAnimation1',
