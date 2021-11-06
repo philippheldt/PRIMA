@@ -41,6 +41,7 @@ var Script;
     let agent;
     let healthCounter = 100;
     let stop = false;
+    let collisionAnimation = true;
     let health = document.getElementsByClassName('myBar');
     document.addEventListener("interactiveViewportStarted", start);
     let ctrForward = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts
@@ -89,19 +90,71 @@ var Script;
             if (healthCounter > 0 && stop === false) {
                 healthCounter = healthCounter - 0.5;
                 health[0].setAttribute("style", "width: " + healthCounter + "%;");
-                console.log(healthCounter);
+                if (collisionAnimation === true) {
+                    stopHAnimation();
+                    startCAnimation();
+                    collisionAnimation = false; //to stop restarting animation on each LOOP
+                }
+                if (healthCounter <= 1) { //stop health gowing or declining, when Dead
+                    stop = true;
+                    stopCAnimation();
+                }
             }
         }
         else {
             if (healthCounter < 100 && stop === false) {
                 healthCounter = healthCounter + 0.01;
-                console.log(healthCounter);
                 health[0].setAttribute("style", "width: " + healthCounter + "%;");
+                if (collisionAnimation === false) {
+                    stopCAnimation();
+                    startHAnimation(); //stop all animations.
+                    collisionAnimation = true; //to stop restarting animation on each LOOP
+                }
+                if (healthCounter >= 99) {
+                    stopHAnimation(); // stop the health Animation when health is retored
+                }
             }
-        }
-        if (healthCounter <= 1) {
-            stop = true;
         }
     }
 })(Script || (Script = {}));
+function startCAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        translateY: [-2, 2],
+        loop: true,
+        direction: 'alternate',
+        duration: 50,
+        easing: 'easeInOutElastic',
+    });
+}
+function stopCAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        translateY: [0, 0],
+        loop: true,
+        direction: 'alternate',
+        duration: 50,
+        easing: 'easeInOutElastic',
+    });
+}
+function startHAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        scale: 1.03,
+        loop: true,
+        direction: 'alternate',
+        duration: 700,
+        easing: 'easeInOutSine',
+    });
+}
+function stopHAnimation() {
+    anime({
+        targets: '.progressAnimation1',
+        scale: 1,
+        loop: true,
+        direction: 'alternate',
+        duration: 700,
+        easing: 'easeInOutSine',
+    });
+}
 //# sourceMappingURL=Script.js.map

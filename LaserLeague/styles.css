@@ -98,10 +98,11 @@ h2,
   width: 100%;
   background-color: #0A0F4D;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .p1 .myBar {
-  width: 50%;
+  width: 100%;
   height: 30px;
   background-color: #3C68F8;
   border-radius: 5px;
@@ -109,8 +110,17 @@ h2,
 
 
 .p2 .myBar {
-  width: 50%;
+  width: 100%;
   height: 30px;
   background-color: #F3349E;
   border-radius: 5px;
+}
+
+.p2 *{
+  filter: blur(2px);
+  opacity: 25%;
+}
+
+.p2 .myProgress{
+  background-color: #F3349E;
 }

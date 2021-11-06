@@ -9,3 +9,7 @@ declare namespace Script {
 }
 declare namespace Script {
 }
+declare function startCAnimation(): void;
+declare function stopCAnimation(): void;
+declare function startHAnimation(): void;
+declare function stopHAnimation(): void;

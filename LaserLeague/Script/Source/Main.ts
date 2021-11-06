@@ -7,10 +7,11 @@ namespace Script {
   let agent: ƒ.Node;
   let healthCounter: number = 100;
   let stop: boolean = false;
+  let collisionAnimation: boolean = true;
 
   let health= document.getElementsByClassName('myBar');
 
-
+  
 
 
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
@@ -91,23 +92,46 @@ namespace Script {
         if(healthCounter > 0 && stop === false) {
           healthCounter = healthCounter -0.5;
           health[0].setAttribute("style", "width: "+healthCounter+"%;");
-          console.log(healthCounter);
+          
+          if( collisionAnimation === true){
+            stopHAnimation();
+            startCAnimation();
+            collisionAnimation = false; //to stop restarting animation on each LOOP
+          }
+          
+          if(healthCounter<= 1){ //stop health gowing or declining, when Dead
+            stop = true;
+            stopCAnimation();
+          }
+
         }
       } else {
         if(healthCounter < 100 && stop === false) {
          healthCounter = healthCounter +0.01;
-         console.log(healthCounter);
          health[0].setAttribute("style", "width: "+healthCounter+"%;");
+          
+         if(collisionAnimation ===false){
+            stopCAnimation();
+            startHAnimation();  //stop all animations.
+            collisionAnimation = true; //to stop restarting animation on each LOOP
+          }
+
+          if(healthCounter>=99){
+            stopHAnimation(); // stop the health Animation when health is retored
+          }
+          
+          
+         }
         }
       }
 
-      if(healthCounter<= 1){
-        stop = true;
-      }
+    
+
+      
    
   
   
     
   }
-}
+
 

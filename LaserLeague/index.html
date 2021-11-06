@@ -8,6 +8,8 @@
 <!--Editor settings of this project-->
 <meta type="settings" autoview="Graph|2021-10-13T12:42:15.134Z|58505" project="{'name':'LaserLeague','includeAutoViewScript':true,'graphAutoView':'Graph|2021-10-13T12:42:15.134Z|58505'}" panels="[{'type':'PanelProject','state':{}},{'type':'PanelGraph','state':{'graph':'Graph|2021-10-13T12:42:15.134Z|58505'}}]" />
 
+
+
 <!--Activate the following line to include the FUDGE-version of Oimo-Physics. You may want to download a local copy to work offline and be independent from future changes!-->
 <!--<script type="text/javascript" src="../../../Physics/OimoPhysics.js"></script>-->
 
@@ -19,7 +21,10 @@
 <link type="resources" src="Internal.json" />
 
 <!--Load custom scripts-->
+<script src="js/anime.min.js"></script>
+<script src="js/ui.js"></script>
 <script type="text/javascript" src="Script/Build/Script.js" editor="true"></script>
+
 
 <script name="autoView">(function (_graphId) {
                 /**
@@ -78,7 +83,9 @@
 </script>
 </head>
 <body>
+
 <!--Dialog shown at startup only-->
+
 
 <dialog>
     <div class="dialog-inner">
@@ -87,6 +94,9 @@
     </div>
 </dialog>
 <!--Canvas for FUDGE to render to-->
+
+
+
 <canvas class="fullscreen">
     
 </canvas>
@@ -95,14 +105,16 @@
             <img src="img/usr.png" alt="">
             <h2>Richard</h2>
             <img src="img/hrt.png" alt="">
-            <div class="myProgress">
-                <div class="myBar"></div>
-              </div>
+            <div class="progressAnimation1">
+                <div class="myProgress">
+                    <div class="myBar"></div>
+                </div>
+            </div>
         </div>
 
         <div class="hud-inner p2">
             <img src="img/usr-pink.png" alt="">
-            <h2>Siglinde</h2>
+            <h2>---</h2>
             <img src="img/hrt-pink.png" alt="">
             <div class="myProgress">
                 <div class="myBar"></div>
@@ -110,6 +122,6 @@
         </div>
     </div>
 
-    <script src="ui.js"></script>
+   
 </body>
 </html>
