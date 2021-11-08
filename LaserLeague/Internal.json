@@ -522,7 +522,7 @@
                         "children": [
                                 {
                                   "ƒ.Node": {
-                                    "name": "beam",
+                                    "name": "beam1",
                                     "components": {
                                       "ComponentMesh": [
                                         {
@@ -563,7 +563,7 @@
                                 },
                                 {
                                   "ƒ.Node": {
-                                    "name": "beam",
+                                    "name": "beam2",
                                     "components": {
                                       "ComponentMesh": [
                                         {
@@ -604,7 +604,7 @@
                                 },
                                 {
                                   "ƒ.Node": {
-                                    "name": "beam",
+                                    "name": "beam3",
                                     "components": {
                                       "ComponentMesh": [
                                         {

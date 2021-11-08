@@ -63,10 +63,13 @@ namespace Script {
 
     ƒ.AudioManager.default.update();
 
-    let beams: ƒ.Node[] = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam");
-    beams.forEach(beam =>{
-      checkCollision(agent, beam);
-    })
+    let beam1: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam1")[0];
+    
+    checkCollision(agent, beam1);
+    console.log(beam1);
+    // beams.forEach((beam) =>{
+    //   checkCollision(agent, beam);
+    // })
     
   
   }
@@ -75,7 +78,7 @@ namespace Script {
   function checkCollision(agent: ƒ.Node, beam:ƒ.Node): void {
   
     let distance: ƒ.Vector3 = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
-  
+    
     let x = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.x/2 + agent.radius;
     let y = beam.getComponent(ƒ.ComponentMesh).mtxPivot.scaling.y + agent.radius;
   

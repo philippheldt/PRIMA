@@ -73,10 +73,12 @@ var Script;
         transform.rotateZ(speedLaserRotate * (ƒ.Loop.timeFrameReal / 1000));
         viewport.draw();
         ƒ.AudioManager.default.update();
-        let beams = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam");
-        beams.forEach(beam => {
-            checkCollision(agent, beam);
-        });
+        let beam1 = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam1")[0];
+        checkCollision(agent, beam1);
+        console.log(beam1);
+        // beams.forEach((beam) =>{
+        //   checkCollision(agent, beam);
+        // })
     }
     function checkCollision(agent, beam) {
         let distance = ƒ.Vector3.TRANSFORMATION(agent.mtxWorld.translation, beam.mtxWorldInverse, true);
