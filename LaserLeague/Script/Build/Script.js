@@ -42,6 +42,7 @@ var Script;
     let healthCounter = 100;
     let stop = false;
     let collisionAnimation = true;
+    let audioHit = new ƒ.Audio("./sound/hit.mp3");
     let health = document.getElementsByClassName('myBar');
     document.addEventListener("interactiveViewportStarted", start);
     let ctrForward = new ƒ.Control("Forward", 1, 0 /* PROPORTIONAL */); //Copied from controls.ts

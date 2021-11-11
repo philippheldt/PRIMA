@@ -8,9 +8,12 @@ namespace Script {
   let healthCounter: number = 100;
   let stop: boolean = false;
   let collisionAnimation: boolean = true;
-  let health= document.getElementsByClassName('myBar');
+  let audioHit: ƒ.Audio = new ƒ.Audio("./sound/hit.mp3");
 
   
+  let health= document.getElementsByClassName('myBar');
+
+
 
 
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
@@ -91,6 +94,7 @@ namespace Script {
         if(healthCounter > 0 && stop === false) {
           healthCounter = healthCounter -0.5;
           health[0].setAttribute("style", "width: "+healthCounter+"%;");
+          
           
           if( collisionAnimation === true){
             stopHAnimation();
