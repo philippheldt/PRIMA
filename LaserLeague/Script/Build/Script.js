@@ -73,9 +73,12 @@ var Script;
         transform.rotateZ(speedLaserRotate * (ƒ.Loop.timeFrameReal / 1000));
         viewport.draw();
         ƒ.AudioManager.default.update();
-        let beam1 = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam1")[0];
-        checkCollision(agent, beam1);
-        console.log(beam1);
+        // let beam1: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam1")[0];
+        // let beam2: ƒ.Node = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam2")[0];
+        let beam3 = viewport.getBranch().getChildrenByName("lasers")[0].getChildrenByName("all_lasers")[0].getChildrenByName("laser")[0].getChildrenByName("beam3")[0];
+        // checkCollision(agent, beam1);
+        // checkCollision(agent, beam2);
+        checkCollision(agent, beam3);
         // beams.forEach((beam) =>{
         //   checkCollision(agent, beam);
         // })
