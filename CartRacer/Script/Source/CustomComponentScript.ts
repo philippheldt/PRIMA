@@ -22,10 +22,10 @@ namespace Script {
     }
 
     // Activate the functions of this component as response to events
-    public hndEvent = (_event: Event): void => {
+    public hndEvent = (_event: Event) => {
       switch (_event.type) {
         case ƒ.EVENT.COMPONENT_ADD:
-          ƒ.Debug.log(this.message, this.node);
+          //ƒ.Debug.log(this.message, this.getContainer());
           break;
         case ƒ.EVENT.COMPONENT_REMOVE:
           this.removeEventListener(ƒ.EVENT.COMPONENT_ADD, this.hndEvent);
