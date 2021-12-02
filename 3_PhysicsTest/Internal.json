@@ -1,1 +1,70 @@
-{}
+{
+  "MeshCube|2021-12-02T08:49:08.391Z|40047": {
+    "ƒ.MeshCube": {
+      "idResource": "MeshCube|2021-12-02T08:49:08.391Z|40047",
+      "name": "MeshCube",
+      "type": "MeshCube"
+    }
+  },
+  "Material|2021-12-02T08:49:13.012Z|58225": {
+    "ƒ.Material": {
+      "name": "NewMaterial",
+      "idResource": "Material|2021-12-02T08:49:13.012Z|58225",
+      "shader": "ShaderFlat",
+      "coat": {
+        "ƒ.CoatColored": {
+          "color": "[1, 1, 1, 1]"
+        }
+      }
+    }
+  },
+  "TextureImage|2021-12-02T08:49:27.653Z|34791": {
+    "ƒ.TextureImage": {
+      "url": "maptex.png",
+      "type": "TextureImage",
+      "Texture": {
+        "idResource": "TextureImage|2021-12-02T08:49:27.653Z|34791",
+        "name": "maptex.png",
+        "mipmap": "CRISP"
+      }
+    }
+  },
+  "Graph|2021-12-02T08:49:45.037Z|38479": {
+    "ƒ.Graph": {
+      "name": "Physics_Graph",
+      "components": {},
+      "children": [
+        {
+          "ƒ.Node": {
+            "name": "Cube & Ground",
+            "components": {},
+            "children": [{
+              "ƒ.Node": {
+                "name": "Cube",
+                "components": {
+                  "ComponentMesh": [
+                    {
+                      "ƒ.ComponentMesh": {
+                        "idMesh": "MeshCube|2021-10-13T12:47:57.585Z|25239",
+                        "pivot": {
+                          "translation": "[0, 1.9000002145767212, 0]",
+                          "rotation": "[0, 0, 0]",
+                          "scaling": "[0.10000001639127731, 3, 1]"
+                        },
+                        "Component": {
+                          "active": true
+                        }
+                      }
+                    }
+                  ]},
+                "children": []
+              }
+            }]
+          }
+        }
+      ],
+      "idResource": "Graph|2021-12-02T08:49:45.037Z|38479",
+      "type": "Graph"
+    }
+  }
+}
